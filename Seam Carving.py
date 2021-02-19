@@ -1,25 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
-# Tutorial 01 / Q 05
 # Gourav Siddhad
 # 20911004
 # g_siddhad@cs.iitr.ac.in
 
-
-# In[2]:
-
+#################################################################
 
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-
-# In[3]:
-
+#################################################################
 
 # image energy function using abs of gradients
 def compute_energy(img):
@@ -43,10 +35,6 @@ def compute_cumulative_min_energy_horizontal(energy):
             cmenergy[i][j] = energy[i][j] + cmenergy[i+1, c1:c2].min()
                 
     return cmenergy
-
-
-# In[4]:
-
 
 def compute_optimal_seam_vertical(cumulative_energy_v):
     vseam = compute_optimal_seam_horizontal(cumulative_energy_v.T)
@@ -79,9 +67,7 @@ def remove_seam_horizontal(img, seam_h):
         newImg[i, j:c-1] = img[i, j+1:c]
     return newImg[:, :-1].astype(np.int32)
 
-
-# In[5]:
-
+#################################################################
 
 def sc_resize_image(img, nshape):
     img_out = img.copy()
@@ -118,6 +104,8 @@ def sc_resize_image(img, nshape):
         
     return bkp_e, bkp_vc, bkp_hc, img_out
 
+#################################################################
+
 def sc_resize_energy(img, nshape):
     img_out = img.copy()
     
@@ -151,9 +139,7 @@ def sc_resize_energy(img, nshape):
     
     return bkp_vc, bkp_hc, img_out
 
-
-# In[29]:
-
+#################################################################
 
 def read_energy(fname):
     energy = []
@@ -176,9 +162,7 @@ def write_energy(fname, energy):
     except:
         print('Error while writing file')
 
-
-# In[25]:
-
+#################################################################
 
 def display_seam(img, seam, vflag=True):
     newimg = np.zeros((img.shape[0], img.shape[1], 3))
@@ -200,9 +184,7 @@ def display_seam(img, seam, vflag=True):
         plt.savefig('display_seam_h.png', dpi=300, bbox_inches='tight', pad_inches=0.2)
     plt.show()
 
-
-# In[26]:
-
+#################################################################
 
 # imname = 'img_energy.txt'
 imname = input('Enter Energy Text File (with directory) : ')
@@ -255,9 +237,7 @@ plt.tight_layout()
 plt.savefig('SeamCarving_Full.png', dpi=300, bbox_inches='tight', pad_inches=0.2)
 plt.show()
 
-
-# In[28]:
-
+#################################################################
 
 imname = input('Enter Image Name (with directory) : ')
 img = cv2.imread(imname, 0)
@@ -311,10 +291,3 @@ ax[4].set_title('Output')
 plt.tight_layout()
 plt.savefig('SeamCarving_Full.png', dpi=300, bbox_inches='tight', pad_inches=0.2)
 plt.show()
-
-
-# In[ ]:
-
-
-
-
